@@ -5,6 +5,7 @@ A small CMake-based C++ library for teaching cryptographic hashing.
 Currently implemented:
 - MD5 (RFC 1321 style reference implementation)
 - SHA1 (FIPS PUB 180-1 style reference implementation)
+- SHA-256 (FIPS PUB 180-4 style reference implementation)
 
 ## Project layout
 - `include/hashlib/` public headers

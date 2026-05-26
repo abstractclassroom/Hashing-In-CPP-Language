@@ -10,6 +10,7 @@ namespace hashlib {
 enum class Algorithm {
   MD5,
   SHA1,
+  SHA256,
 };
 
 std::string hash_hex(Algorithm alg, std::string_view text);
