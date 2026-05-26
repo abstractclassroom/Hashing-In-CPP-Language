@@ -1,0 +1,7 @@
+add_test([=[MD5.EmptyString]=]  /Volumes/DockDrive/github/teaching/guided_repos/Hashing-In-CPP-Language/build/tests/hashlib_tests [==[--gtest_filter=MD5.EmptyString]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[MD5.EmptyString]=]  PROPERTIES WORKING_DIRECTORY /Volumes/DockDrive/github/teaching/guided_repos/Hashing-In-CPP-Language/build/tests SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
+add_test([=[MD5.ABC]=]  /Volumes/DockDrive/github/teaching/guided_repos/Hashing-In-CPP-Language/build/tests/hashlib_tests [==[--gtest_filter=MD5.ABC]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[MD5.ABC]=]  PROPERTIES WORKING_DIRECTORY /Volumes/DockDrive/github/teaching/guided_repos/Hashing-In-CPP-Language/build/tests SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
+add_test([=[MD5.IStreamConstructor]=]  /Volumes/DockDrive/github/teaching/guided_repos/Hashing-In-CPP-Language/build/tests/hashlib_tests [==[--gtest_filter=MD5.IStreamConstructor]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[MD5.IStreamConstructor]=]  PROPERTIES WORKING_DIRECTORY /Volumes/DockDrive/github/teaching/guided_repos/Hashing-In-CPP-Language/build/tests SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
+set(  hashlib_tests_TESTS MD5.EmptyString MD5.ABC MD5.IStreamConstructor)

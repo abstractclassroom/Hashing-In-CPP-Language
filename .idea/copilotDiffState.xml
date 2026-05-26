@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/CMakeLists.txt">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/CMakeLists.txt" />
+              <option name="updatedContent" value="cmake_minimum_required(VERSION 3.20)&#10;&#10;project(hashlib VERSION 0.1.0 LANGUAGES CXX)&#10;&#10;option(HASHLIB_BUILD_TESTS &quot;Build unit tests&quot; ON)&#10;option(HASHLIB_BUILD_EXAMPLES &quot;Build examples&quot; ON)&#10;&#10;add_library(hashlib&#10;  src/md5.cpp&#10;  src/hashlib.cpp&#10;)&#10;&#10;add_library(hashlib::hashlib ALIAS hashlib)&#10;&#10;target_include_directories(hashlib&#10;  PUBLIC&#10;    $&lt;BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include&gt;&#10;    $&lt;INSTALL_INTERFACE:include&gt;&#10;)&#10;&#10;target_compile_features(hashlib PUBLIC cxx_std_17)&#10;&#10;if (MSVC)&#10;  target_compile_options(hashlib PRIVATE /W4)&#10;else()&#10;  target_compile_options(hashlib PRIVATE -Wall -Wextra -Wpedantic)&#10;endif()&#10;&#10;if (HASHLIB_BUILD_EXAMPLES)&#10;  add_subdirectory(examples)&#10;endif()&#10;&#10;if (HASHLIB_BUILD_TESTS)&#10;  enable_testing()&#10;  add_subdirectory(tests)&#10;endif()&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/README.md">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/README.md" />
+              <option name="originalContent" value="# Hashing-In-C++-Language&#10;This repository demonstrates how to implement MD5, SHA1 and SHA256 hashing functions using C.&#10;" />
+              <option name="updatedContent" value="# Hashing-In-C++-Language&#10;&#10;A small CMake-based C++ library for teaching cryptographic hashing.&#10;&#10;Currently implemented:&#10;- MD5 (RFC 1321 style reference implementation)&#10;&#10;## Project layout&#10;- `include/hashlib/` public headers&#10;- `src/` implementation files&#10;- `examples/` small runnable samples&#10;- `tests/` GoogleTest-based unit tests&#10;&#10;## Build&#10;&#10;```sh&#10;cmake -S . -B build&#10;cmake --build build&#10;```&#10;&#10;## Run example&#10;&#10;```sh&#10;./build/examples/md5_example&#10;```&#10;&#10;## Run tests&#10;&#10;```sh&#10;ctest --test-dir build&#10;```&#10;&#10;## Use from another project (FetchContent)&#10;&#10;```cmake&#10;include(FetchContent)&#10;&#10;FetchContent_Declare(&#10;  hashlib&#10;  GIT_REPOSITORY https://github.com/&lt;you&gt;/Hashing-In-CPP-Language.git&#10;  GIT_TAG v0.1.0&#10;)&#10;&#10;FetchContent_MakeAvailable(hashlib)&#10;&#10;target_link_libraries(your_target PRIVATE hashlib::hashlib)&#10;```&#10;&#10;In code:&#10;&#10;```cpp&#10;#include &lt;hashlib/md5.hpp&gt;&#10;// or&#10;#include &lt;hashlib/hashlib.hpp&gt;&#10;```&#10;&#10;## Notes for teaching&#10;MD5 is not considered secure for modern cryptographic integrity/authentication, but it is useful for teaching:&#10;- Merkle–Damgård construction&#10;- message padding and length encoding&#10;- block processing and round functions" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/examples/CMakeLists.txt">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/examples/CMakeLists.txt" />
+              <option name="updatedContent" value="add_executable(md5_example md5_example.cpp)&#10;target_link_libraries(md5_example PRIVATE hashlib::hashlib)&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/examples/md5_example.cpp">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/examples/md5_example.cpp" />
+              <option name="updatedContent" value="#include &lt;hashlib/md5.hpp&gt;&#10;&#10;#include &lt;iostream&gt;&#10;&#10;int main() {&#10;  hashlib::MD5 h{&quot;hello world&quot;};&#10;  std::cout &lt;&lt; h.hex_digest() &lt;&lt; &quot;\n&quot;;&#10;  return 0;&#10;}&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/include/hashlib/hashlib.hpp">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/include/hashlib/hashlib.hpp" />
+              <option name="updatedContent" value="#pragma once&#10;&#10;#include &lt;iosfwd&gt;&#10;#include &lt;string&gt;&#10;#include &lt;string_view&gt;&#10;&#10;namespace hashlib {&#10;&#10;enum class Algorithm {&#10;  MD5,&#10;};&#10;&#10;std::string hash_hex(Algorithm alg, std::string_view text);&#10;std::string hash_hex(Algorithm alg, std::istream&amp; in);&#10;&#10;} // namespace hashlib&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/include/hashlib/md5.hpp">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/include/hashlib/md5.hpp" />
+              <option name="updatedContent" value="#pragma once&#10;&#10;#include &lt;array&gt;&#10;#include &lt;cstdint&gt;&#10;#include &lt;iosfwd&gt;&#10;#include &lt;string&gt;&#10;#include &lt;string_view&gt;&#10;&#10;namespace hashlib {&#10;&#10;class MD5 {&#10;public:&#10;  explicit MD5(std::string_view text);&#10;  explicit MD5(std::istream&amp; in);&#10;&#10;  std::array&lt;std::uint8_t, 16&gt; digest() const;&#10;  std::string hex_digest() const;&#10;&#10;private:&#10;  std::array&lt;std::uint8_t, 16&gt; digest_{};&#10;};&#10;&#10;} // namespace hashlib&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/hashlib.cpp">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/hashlib.cpp" />
+              <option name="updatedContent" value="#include &lt;hashlib/hashlib.hpp&gt;&#10;#include &lt;hashlib/md5.hpp&gt;&#10;&#10;#include &lt;istream&gt;&#10;#include &lt;stdexcept&gt;&#10;&#10;namespace hashlib {&#10;&#10;std::string hash_hex(Algorithm alg, std::string_view text) {&#10;  switch (alg) {&#10;    case Algorithm::MD5:&#10;      return MD5{text}.hex_digest();&#10;  }&#10;  throw std::invalid_argument(&quot;Unsupported algorithm&quot;);&#10;}&#10;&#10;std::string hash_hex(Algorithm alg, std::istream&amp; in) {&#10;  switch (alg) {&#10;    case Algorithm::MD5:&#10;      return MD5{in}.hex_digest();&#10;  }&#10;  throw std::invalid_argument(&quot;Unsupported algorithm&quot;);&#10;}&#10;&#10;} // namespace hashlib&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/md5.cpp">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/md5.cpp" />
+              <option name="updatedContent" value="#include &lt;hashlib/md5.hpp&gt;&#10;&#10;#include &lt;array&gt;&#10;#include &lt;cstdint&gt;&#10;#include &lt;cstring&gt;&#10;#include &lt;iomanip&gt;&#10;#include &lt;istream&gt;&#10;#include &lt;ostream&gt;&#10;#include &lt;sstream&gt;&#10;#include &lt;stdexcept&gt;&#10;#include &lt;string&gt;&#10;#include &lt;string_view&gt;&#10;#include &lt;vector&gt;&#10;&#10;namespace hashlib {&#10;namespace {&#10;&#10;// A straightforward MD5 implementation based on the algorithm description in RFC 1321.&#10;// This is intentionally written in a clear &quot;teaching friendly&quot; style.&#10;&#10;constexpr std::uint32_t left_rotate(std::uint32_t x, std::uint32_t c) {&#10;  return (x &lt;&lt; c) | (x &gt;&gt; (32u - c));&#10;}&#10;&#10;constexpr std::array&lt;std::uint32_t, 64&gt; k = {&#10;  0xd76aa478u, 0xe8c7b756u, 0x242070dbu, 0xc1bdceeeu,&#10;  0xf57c0fafu, 0x4787c62au, 0xa8304613u, 0xfd469501u,&#10;  0x698098d8u, 0x8b44f7afu, 0xffff5bb1u, 0x895cd7beu,&#10;  0x6b901122u, 0xfd987193u, 0xa679438eu, 0x49b40821u,&#10;  0xf61e2562u, 0xc040b340u, 0x265e5a51u, 0xe9b6c7aau,&#10;  0xd62f105du, 0x02441453u, 0xd8a1e681u, 0xe7d3fbc8u,&#10;  0x21e1cde6u, 0xc33707d6u, 0xf4d50d87u, 0x455a14edu,&#10;  0xa9e3e905u, 0xfcefa3f8u, 0x676f02d9u, 0x8d2a4c8au,&#10;  0xfffa3942u, 0x8771f681u, 0x6d9d6122u, 0xfde5380cu,&#10;  0xa4beea44u, 0x4bdecfa9u, 0xf6bb4b60u, 0xbebfbc70u,&#10;  0x289b7ec6u, 0xeaa127fau, 0xd4ef3085u, 0x04881d05u,&#10;  0xd9d4d039u, 0xe6db99e5u, 0x1fa27cf8u, 0xc4ac5665u,&#10;  0xf4292244u, 0x432aff97u, 0xab9423a7u, 0xfc93a039u,&#10;  0x655b59c3u, 0x8f0ccc92u, 0xffeff47du, 0x85845dd1u,&#10;  0x6fa87e4fu, 0xfe2ce6e0u, 0xa3014314u, 0x4e0811a1u,&#10;  0xf7537e82u, 0xbd3af235u, 0x2ad7d2bbu, 0xeb86d391u,&#10;};&#10;&#10;constexpr std::array&lt;std::uint32_t, 64&gt; s = {&#10;  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,&#10;  5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,&#10;  4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,&#10;  6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21,&#10;};&#10;&#10;std::vector&lt;std::uint8_t&gt; read_all(std::istream&amp; in) {&#10;  std::vector&lt;std::uint8_t&gt; data;&#10;  std::array&lt;char, 4096&gt; buf{};&#10;  while (in) {&#10;    in.read(buf.data(), static_cast&lt;std::streamsize&gt;(buf.size()));&#10;    const auto n = in.gcount();&#10;    if (n &gt; 0) {&#10;      data.insert(data.end(), reinterpret_cast&lt;std::uint8_t*&gt;(buf.data()),&#10;                  reinterpret_cast&lt;std::uint8_t*&gt;(buf.data()) + n);&#10;    }&#10;  }&#10;  if (!in.eof() &amp;&amp; in.fail()) {&#10;    throw std::runtime_error(&quot;Failed while reading from stream&quot;);&#10;  }&#10;  return data;&#10;}&#10;&#10;std::array&lt;std::uint8_t, 16&gt; md5_digest(const std::uint8_t* msg, std::size_t len) {&#10;  // Initialize variables (A, B, C, D)&#10;  std::uint32_t a0 = 0x67452301u;&#10;  std::uint32_t b0 = 0xefcdab89u;&#10;  std::uint32_t c0 = 0x98badcfeu;&#10;  std::uint32_t d0 = 0x10325476u;&#10;&#10;  // Pre-processing: padding the message&#10;  // Append a single '1' bit (0x80), then pad with zeros until length ≡ 56 (mod 64)&#10;  // Append length in bits as 64-bit little-endian.&#10;  const std::uint64_t bit_len = static_cast&lt;std::uint64_t&gt;(len) * 8ull;&#10;&#10;  std::vector&lt;std::uint8_t&gt; buffer(msg, msg + len);&#10;  buffer.push_back(0x80u);&#10;  while ((buffer.size() % 64) != 56) {&#10;    buffer.push_back(0x00u);&#10;  }&#10;&#10;  for (int i = 0; i &lt; 8; ++i) {&#10;    buffer.push_back(static_cast&lt;std::uint8_t&gt;((bit_len &gt;&gt; (8 * i)) &amp; 0xffu));&#10;  }&#10;&#10;  // Process the message in successive 512-bit chunks&#10;  for (std::size_t offset = 0; offset &lt; buffer.size(); offset += 64) {&#10;    // break chunk into sixteen 32-bit words w[j], little-endian&#10;    std::uint32_t w[16];&#10;    for (int j = 0; j &lt; 16; ++j) {&#10;      const std::size_t i = offset + static_cast&lt;std::size_t&gt;(j) * 4;&#10;      w[j] = (static_cast&lt;std::uint32_t&gt;(buffer[i + 0]) &lt;&lt; 0) |&#10;             (static_cast&lt;std::uint32_t&gt;(buffer[i + 1]) &lt;&lt; 8) |&#10;             (static_cast&lt;std::uint32_t&gt;(buffer[i + 2]) &lt;&lt; 16) |&#10;             (static_cast&lt;std::uint32_t&gt;(buffer[i + 3]) &lt;&lt; 24);&#10;    }&#10;&#10;    std::uint32_t A = a0;&#10;    std::uint32_t B = b0;&#10;    std::uint32_t C = c0;&#10;    std::uint32_t D = d0;&#10;&#10;    for (std::uint32_t i = 0; i &lt; 64; ++i) {&#10;      std::uint32_t F = 0;&#10;      std::uint32_t g = 0;&#10;&#10;      if (i &lt; 16) {&#10;        F = (B &amp; C) | ((~B) &amp; D);&#10;        g = i;&#10;      } else if (i &lt; 32) {&#10;        F = (D &amp; B) | ((~D) &amp; C);&#10;        g = (5 * i + 1) % 16;&#10;      } else if (i &lt; 48) {&#10;        F = B ^ C ^ D;&#10;        g = (3 * i + 5) % 16;&#10;      } else {&#10;        F = C ^ (B | (~D));&#10;        g = (7 * i) % 16;&#10;      }&#10;&#10;      const std::uint32_t tmp = D;&#10;      D = C;&#10;      C = B;&#10;      B = B + left_rotate(A + F + k[i] + w[g], s[i]);&#10;      A = tmp;&#10;    }&#10;&#10;    a0 += A;&#10;    b0 += B;&#10;    c0 += C;&#10;    d0 += D;&#10;  }&#10;&#10;  std::array&lt;std::uint8_t, 16&gt; out{};&#10;  const std::uint32_t words[4] = {a0, b0, c0, d0};&#10;  for (int i = 0; i &lt; 4; ++i) {&#10;    out[static_cast&lt;std::size_t&gt;(i) * 4 + 0] = static_cast&lt;std::uint8_t&gt;((words[i] &gt;&gt; 0) &amp; 0xffu);&#10;    out[static_cast&lt;std::size_t&gt;(i) * 4 + 1] = static_cast&lt;std::uint8_t&gt;((words[i] &gt;&gt; 8) &amp; 0xffu);&#10;    out[static_cast&lt;std::size_t&gt;(i) * 4 + 2] = static_cast&lt;std::uint8_t&gt;((words[i] &gt;&gt; 16) &amp; 0xffu);&#10;    out[static_cast&lt;std::size_t&gt;(i) * 4 + 3] = static_cast&lt;std::uint8_t&gt;((words[i] &gt;&gt; 24) &amp; 0xffu);&#10;  }&#10;  return out;&#10;}&#10;&#10;std::string to_hex(const std::array&lt;std::uint8_t, 16&gt;&amp; d) {&#10;  std::ostringstream oss;&#10;  oss &lt;&lt; std::hex &lt;&lt; std::setfill('0');&#10;  for (auto b : d) {&#10;    oss &lt;&lt; std::setw(2) &lt;&lt; static_cast&lt;unsigned&gt;(b);&#10;  }&#10;  return oss.str();&#10;}&#10;&#10;} // namespace&#10;&#10;MD5::MD5(std::string_view text)&#10;    : digest_{md5_digest(reinterpret_cast&lt;const std::uint8_t*&gt;(text.data()), text.size())} {}&#10;&#10;MD5::MD5(std::istream&amp; in) {&#10;  auto bytes = read_all(in);&#10;  digest_ = md5_digest(bytes.data(), bytes.size());&#10;}&#10;&#10;std::array&lt;std::uint8_t, 16&gt; MD5::digest() const {&#10;  return digest_;&#10;}&#10;&#10;std::string MD5::hex_digest() const {&#10;  return to_hex(digest_);&#10;}&#10;&#10;} // namespace hashlib&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/tests/CMakeLists.txt">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/tests/CMakeLists.txt" />
+              <option name="updatedContent" value="include(FetchContent)&#10;&#10;if(POLICY CMP0135)&#10;  cmake_policy(SET CMP0135 NEW)&#10;endif()&#10;&#10;FetchContent_Declare(&#10;  googletest&#10;  URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip&#10;  DOWNLOAD_EXTRACT_TIMESTAMP TRUE&#10;)&#10;&#10;set(gtest_force_shared_crt ON CACHE BOOL &quot;&quot; FORCE)&#10;&#10;FetchContent_MakeAvailable(googletest)&#10;&#10;add_executable(hashlib_tests&#10;  md5_tests.cpp&#10;)&#10;&#10;target_link_libraries(hashlib_tests&#10;  PRIVATE&#10;    hashlib::hashlib&#10;    GTest::gtest_main&#10;)&#10;&#10;include(GoogleTest)&#10;gtest_discover_tests(hashlib_tests)&#10;&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/tests/md5_tests.cpp">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/tests/md5_tests.cpp" />
+              <option name="updatedContent" value="#include &lt;hashlib/md5.hpp&gt;&#10;&#10;#include &lt;gtest/gtest.h&gt;&#10;&#10;#include &lt;sstream&gt;&#10;&#10;TEST(MD5, EmptyString) {&#10;  hashlib::MD5 h{&quot;&quot;};&#10;  EXPECT_EQ(h.hex_digest(), &quot;d41d8cd98f00b204e9800998ecf8427e&quot;);&#10;}&#10;&#10;TEST(MD5, ABC) {&#10;  hashlib::MD5 h{&quot;abc&quot;};&#10;  EXPECT_EQ(h.hex_digest(), &quot;900150983cd24fb0d6963f7d28e17f72&quot;);&#10;}&#10;&#10;TEST(MD5, IStreamConstructor) {&#10;  std::istringstream in(&quot;abc&quot;);&#10;  hashlib::MD5 h{in};&#10;  EXPECT_EQ(h.hex_digest(), &quot;900150983cd24fb0d6963f7d28e17f72&quot;);&#10;}&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -1,0 +1,5 @@
+if(EXISTS "/Volumes/DockDrive/github/teaching/guided_repos/Hashing-In-CPP-Language/build/tests/hashlib_tests[1]_tests.cmake")
+  include("/Volumes/DockDrive/github/teaching/guided_repos/Hashing-In-CPP-Language/build/tests/hashlib_tests[1]_tests.cmake")
+else()
+  add_test(hashlib_tests_NOT_BUILT hashlib_tests_NOT_BUILT)
+endif()

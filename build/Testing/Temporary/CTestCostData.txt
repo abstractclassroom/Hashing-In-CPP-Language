@@ -1,0 +1,4 @@
+MD5.EmptyString 3 0.00534533
+MD5.ABC 3 0.00177729
+MD5.IStreamConstructor 3 0.00138471
+---
