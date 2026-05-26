@@ -2,6 +2,7 @@
 #include <hashlib/sha1.hpp>
 #include <hashlib/sha256.hpp>
 #include <hashlib/sha512.hpp>
+#include <hashlib/hmac_sha256.hpp>
 
 #include <iostream>
 
@@ -17,6 +18,9 @@ int main() {
 
   hashlib::SHA512 s512{"hello world"};
   std::cout << s512.hex_digest() << "\n";
+
+  hashlib::HMAC_SHA256 hmac{"key", "hello world"};
+  std::cout << hmac.hex_digest() << "\n";
   return 0;
 }
 

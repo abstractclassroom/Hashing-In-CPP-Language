@@ -7,6 +7,7 @@ Currently implemented:
 - SHA1 (FIPS PUB 180-1 style reference implementation)
 - SHA-256 (FIPS PUB 180-4 style reference implementation)
 - SHA-512 (FIPS PUB 180-4 style reference implementation)
+- HMAC-SHA256 (HMAC construction wrapping SHA-256)
 
 ## Project layout
 - `include/hashlib/` public headers
@@ -57,4 +58,11 @@ In code:
 #include <hashlib/hashlib.hpp>
 ```
 
+## Versions
 
+This project uses semantic versioning for teaching purposes.
+
+- `v0.1.0` - Added MD5 implementation and example.
+- `v0.2.0` - Added SHA1 implementation and example.
+- `v0.3.0` - Added SHA-256 implementation and example.
+- `v0.4.0` - Added SHA-512 implementation and example.

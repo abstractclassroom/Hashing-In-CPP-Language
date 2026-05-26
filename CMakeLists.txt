@@ -10,6 +10,7 @@ add_library(hashlib
   src/sha1.cpp
   src/sha256.cpp
   src/sha512.cpp
+  src/hmac_sha256.cpp
   src/hashlib.cpp
 )
 

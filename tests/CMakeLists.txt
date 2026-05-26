@@ -19,6 +19,7 @@ add_executable(hashlib_tests
   sha1_tests.cpp
   sha256_tests.cpp
   sha512_tests.cpp
+  hmac_sha256_tests.cpp
 )
 
 target_link_libraries(hashlib_tests
