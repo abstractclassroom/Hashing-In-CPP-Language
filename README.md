@@ -66,3 +66,4 @@ This project uses semantic versioning for teaching purposes.
 - `v0.2.0` - Added SHA1 implementation and example.
 - `v0.3.0` - Added SHA-256 implementation and example.
 - `v0.4.0` - Added SHA-512 implementation and example.
+- `v0.5.0` - Added HMAC-SHA256 implementation and example.
