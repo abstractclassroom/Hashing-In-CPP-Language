@@ -1,2 +1,0 @@
-/usr/bin/ar qc libhashlib.a CMakeFiles/hashlib.dir/src/md5.cpp.o CMakeFiles/hashlib.dir/src/hashlib.cpp.o
-/usr/bin/ranlib libhashlib.a

@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/Volumes/DockDrive/github/teaching/guided_repos/Hashing-In-CPP-Language/build/_deps/googletest-subbuild/cmake_install.cmake"
-	],
-	"Parallel" : false
-}
