@@ -51,8 +51,9 @@ std::vector<std::uint8_t> read_all(std::istream& in) {
     in.read(buf.data(), static_cast<std::streamsize>(buf.size()));
     const auto n = in.gcount();
     if (n > 0) {
-      data.insert(data.end(), reinterpret_cast<std::uint8_t*>(buf.data()),
-                  reinterpret_cast<std::uint8_t*>(buf.data()) + n);
+      for (std::streamsize i = 0; i < n; ++i) {
+        data.push_back(static_cast<std::uint8_t>(static_cast<unsigned char>(buf[static_cast<std::size_t>(i)])));
+      }
     }
   }
   if (!in.eof() && in.fail()) {

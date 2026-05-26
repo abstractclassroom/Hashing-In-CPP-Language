@@ -4,6 +4,7 @@ A small CMake-based C++ library for teaching cryptographic hashing.
 
 Currently implemented:
 - MD5 (RFC 1321 style reference implementation)
+- SHA1 (FIPS PUB 180-1 style reference implementation)
 
 ## Project layout
 - `include/hashlib/` public headers
@@ -37,7 +38,7 @@ include(FetchContent)
 
 FetchContent_Declare(
   hashlib
-  GIT_REPOSITORY https://github.com/<you>/Hashing-In-CPP-Language.git
+  GIT_REPOSITORY https://github.com/abstractclassroom/Hashing-In-CPP-Language.git
   GIT_TAG v0.1.0
 )
 
@@ -54,8 +55,4 @@ In code:
 #include <hashlib/hashlib.hpp>
 ```
 
-## Notes for teaching
-MD5 is not considered secure for modern cryptographic integrity/authentication, but it is useful for teaching:
-- Merkle–Damgård construction
-- message padding and length encoding
-- block processing and round functions
+

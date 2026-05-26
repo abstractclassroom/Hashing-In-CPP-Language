@@ -3,7 +3,7 @@
 
 #include <array>
 #include <cstdint>
-#include <iosfwd>
+#include <iosfwd> //forward declaration of std::istream
 #include <string>
 #include <string_view>
 

@@ -7,6 +7,7 @@ option(HASHLIB_BUILD_EXAMPLES "Build examples" ON)
 
 add_library(hashlib
   src/md5.cpp
+  src/sha1.cpp
   src/hashlib.cpp
 )
 
