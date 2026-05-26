@@ -18,6 +18,7 @@ add_executable(hashlib_tests
   md5_tests.cpp
   sha1_tests.cpp
   sha256_tests.cpp
+  sha512_tests.cpp
 )
 
 target_link_libraries(hashlib_tests

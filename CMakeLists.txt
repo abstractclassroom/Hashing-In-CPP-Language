@@ -9,6 +9,7 @@ add_library(hashlib
   src/md5.cpp
   src/sha1.cpp
   src/sha256.cpp
+  src/sha512.cpp
   src/hashlib.cpp
 )
 

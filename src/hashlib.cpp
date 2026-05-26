@@ -2,6 +2,7 @@
 #include <hashlib/md5.hpp>
 #include <hashlib/sha1.hpp>
 #include <hashlib/sha256.hpp>
+#include <hashlib/sha512.hpp>
 
 #include <istream>
 #include <stdexcept>
@@ -16,6 +17,8 @@ std::string hash_hex(Algorithm alg, std::string_view text) {
       return SHA1{text}.hex_digest();
     case Algorithm::SHA256:
       return SHA256{text}.hex_digest();
+    case Algorithm::SHA512:
+      return SHA512{text}.hex_digest();
   }
   throw std::invalid_argument("Unsupported algorithm");
 }
@@ -28,6 +31,8 @@ std::string hash_hex(Algorithm alg, std::istream& in) {
       return SHA1{in}.hex_digest();
     case Algorithm::SHA256:
       return SHA256{in}.hex_digest();
+    case Algorithm::SHA512:
+      return SHA512{in}.hex_digest();
   }
   throw std::invalid_argument("Unsupported algorithm");
 }
